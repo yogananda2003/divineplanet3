@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psycho-Spiritual Counselling: Mind, Body, Spirit | The Divine Planet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Variables and Base Styles (Mirroring index.html) */
+        :root {
+            --primary-bg: #000000;
+            --secondary-bg: #111111;
+            --accent-gold: #FFD700;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --brand-violet: #9370DB; /* Medium Purple */
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Poppins', sans-serif;
+        }
+
+        * {
+            -webkit-tap-highlight-color: rgba(147, 112, 219, 0.3);
+            -webkit-touch-callout: none;
+            box-sizing: border-box;
+        }
+
+        html { 
+            scroll-behavior: smooth; 
+            touch-action: manipulation;
+        }
+        
+        body {
+            background-color: var(--primary-bg); 
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            padding-top: 50px; /* Space for the fixed back button area */
+        }
+        
+        .font-serif { font-family: var(--font-serif); }
+        .text-var-brand-violet { color: var(--brand-violet); }
+        .bg-var-brand-violet { background-color: var(--brand-violet); }
+        .bg-var-accent-gold { background-color: var(--accent-gold); }
+        .text-var-accent-gold { color: var(--accent-gold); }
+        .text-text-secondary { color: var(--text-secondary); }
+
+        /* General Content Container */
+        .content-container {
+            max-width: 900px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 2rem 5%;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            touch-action: manipulation;
+        }
+
+        /* Fixed Back Button Bar */
+        #back-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(5px);
+            padding: 1rem 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            pointer-events: auto;
+        }
+        
+        /* Mobile Button Styling (Borrowed from index.html) */
+        .mobile-btn {
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            touch-action: manipulation !important;
+            pointer-events: auto !important;
+        }
+
+        .mobile-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Specific Icon styling for benefits list */
+        .benefit-icon {
+            color: var(--accent-gold);
+            min-width: 24px;
+        }
+        
+        /* List Icons for Counsellor Qualities */
+        .quality-icon {
+            color: var(--brand-violet);
+            min-width: 24px;
+        }
+
+        /* Accordion Style for this page - Reusing the service-detail-item style with slight modification */
+        .counselling-type-item {
+            margin: 0;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .counselling-type-item:last-child {
+            border-bottom: none;
+        }
+
+        .counselling-type-item summary {
+            list-style: none;
+            padding: 0.5rem 0;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            outline: none;
+            touch-action: manipulation;
+            position: relative;
+            z-index: 20;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            pointer-events: auto;
+        }
+
+        .counselling-type-item summary:hover {
+            color: var(--accent-gold);
+        }
+
+        .counselling-type-item summary::before {
+            content: "▶";
+            color: var(--brand-violet);
+            font-weight: bold;
+            display: inline-block;
+            width: 1.5em;
+            margin-right: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .counselling-type-item[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .counselling-type-item p {
+            padding: 0.75rem 0 0.75rem 2rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FIXED BACK BUTTON BAR -->
+    <div id="back-bar">
+        <a href="index.html#services" class="text-text-secondary hover:text-var-brand-violet transition-colors flex items-center text-base font-semibold mobile-btn !py-2 !px-4">
+            <i class="fas fa-arrow-left mr-2"></i> Back to All Services
+        </a>
+    </div>
+
+    <main class="min-h-screen">
+        <div class="content-container pt-8 pb-16">
+
+            <!-- INTRODUCTORY HEADER SECTION -->
+            <div class="text-center mb-16">
+                <p class="text-lg text-var-brand-violet font-semibold mb-2">🧠 Mind | ❤️ Body | ✨ Spirit</p>
+                <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 text-white">
+                    Psycho-Spiritual Counselling
+                </h1>
+                <p class="text-xl text-text-secondary max-w-2xl mx-auto font-sans">
+                    Harnessing the mind's clarity and the spirit's wisdom to achieve holistic healing and true fulfillment.
+                </p>
+                <div class="mt-8 italic text-lg text-text-secondary max-w-xl mx-auto border-t border-b border-gray-800 py-4">
+                    “I am at my best as a therapist, when I am closest to my inner, intuitive self. Then whatever I do seems to be full of healing.” <br>
+                    <span class="font-bold text-var-accent-gold">— Carl Rogers, Founder of Person-Centered Counseling</span>
+                </div>
+            </div>
+
+            <!-- SECTION 1: WHAT IS PSYCHO-SPIRITUAL COUNSELLING? -->
+            <section class="mb-12 glass-card p-6 md:p-10">
+                <h2 class="font-serif text-3xl font-bold mb-4 text-white border-b border-gray-700 pb-3">What is Psycho-Spiritual Counselling?</h2>
+                <div class="text-lg mb-4 text-text-secondary leading-relaxed">
+                    This approach holistically integrates **traditional psychological theories** (Psycho: Relating to the Mind) with various **spiritual tools** (Spiritual: Relating to the human spirit).
+                </div>
+                <div class="text-lg text-text-secondary leading-relaxed">
+                    The **spirit** is defined as the inner teacher and wisdom that resides within each living being—a great power center waiting to give direction and meaning to our lives. Psycho-Spiritual counselling taps into this inner wisdom, guiding you to deal with issues that prevent you from living a joyful, fulfilling lifestyle.
+                </div>
+                <h3 class="font-sans text-xl font-semibold mt-6 mb-3 text-var-brand-violet">The Path to the Authentic Self:</h3>
+                <ul class="space-y-2 text-text-secondary ml-4 list-disc list-inside">
+                    <li>It is a journey of turning inwards and attuning to messages from dreams, interactions, nature, and the cosmos.</li>
+                    <li>We utilize tools like **meditation, visualization, awareness, and intuition** in the pursuit of understanding.</li>
+                    <li>Healing and transformation take place when we address all aspects of our psyche (Mind, Body, and Spirit), helping us reconnect with our **True Authentic Self**.</li>
+                </ul>
+                <div class="mt-8 italic text-lg text-text-secondary max-w-xl mx-auto border-t border-gray-800 pt-4">
+                    “To heal from the inside out is the key.” <br>
+                    <span class="font-bold text-var-accent-gold">— Wynonna Judd</span>
+                </div>
+            </section>
+
+            <!-- SECTION 2: BENEFITS & AREAS ADDRESSED -->
+            <section class="mb-12">
+                <h2 class="font-serif text-3xl font-bold mb-8 text-white text-center">Benefits & Areas of Focus</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- BENEFITS -->
+                    <div class="glass-card p-6">
+                        <h3 class="font-sans text-xl font-semibold mb-3 text-var-accent-gold flex items-center">
+                            <i class="fas fa-heartbeat mr-2"></i> Just a Few Benefits of Counselling
+                        </h3>
+                        <ul class="space-y-2 text-text-secondary list-none">
+                            <li class="flex items-center"><i class="fas fa-arrow-down quality-icon mr-2"></i> Less anxiety & Stress relief</li>
+                            <li class="flex items-center"><i class="fas fa-arrow-up quality-icon mr-2"></i> Greater self-confidence & Increased assertiveness</li>
+                            <li class="flex items-center"><i class="fas fa-balance-scale quality-icon mr-2"></i> Regaining emotional balance & Ability to set boundaries</li>
+                            <li class="flex items-center"><i class="fas fa-undo quality-icon mr-2"></i> Trauma resolution & Overcoming self-defeating habits</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- AREAS ADDRESSED -->
+                    <div class="glass-card p-6">
+                        <h3 class="font-sans text-xl font-semibold mb-3 text-var-accent-gold flex items-center">
+                            <i class="fas fa-moon mr-2"></i> Core Issues We Resolve
+                        </h3>
+                        <ul class="space-y-2 text-text-secondary list-none">
+                            <li class="flex items-center"><i class="fas fa-shield-alt quality-icon mr-2"></i> **Crisis:** Suicidal threats, marital breakdown, irreversible steps.</li>
+                            <li class="flex items-center"><i class="fas fa-brain quality-icon mr-2"></i> **Emotional:** Depression, Anxiety, PTSD, Low self-esteem, Guilt/Shame.</li>
+                            <li class="flex items-center"><i class="fas fa-user-friends quality-icon mr-2"></i> **Relational:** Marital/Family disputes, Relationship patterns.</li>
+                            <li class="flex items-center"><i class="fas fa-child quality-icon mr-2"></i> **Past/Inner Child:** Childhood wounds, Past Life and Karma issues.</li>
+                            <li class="flex items-center"><i class="fas fa-clock quality-icon mr-2"></i> **Developmental:** Career/Retirement planning, Mid-life crises.</li>
+                        </ul>
+                    </div>
+
+                    <!-- STUDENT PROBLEMS (Condensed) -->
+                    <div class="glass-card p-6 md:col-span-2">
+                        <h3 class="font-sans text-xl font-semibold mb-3 text-var-brand-violet text-center">
+                            Specific Focus: Supporting Students and Psychosomatic Issues
+                        </h3>
+                        <p class="text-text-secondary italic text-center mb-3">We provide specialized support for issues like fear of failure, concentration problems, psychosomatic problems (nail biting, stuttering, bed wetting), and competition stress.</p>
+                        <ul class="flex flex-wrap justify-center gap-4 text-xs text-var-accent-gold font-medium">
+                            <li>Lack of Confidence</li>
+                            <li>Lack of Motivation</li>
+                            <li>Negative Thinking</li>
+                            <li>Loneliness</li>
+                            <li>Fears & Phobias</li>
+                            <li>Teeth Grinding</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: COUNSELLOR QUALITIES AND THE PROCESS -->
+            <section class="mb-12 glass-card p-6 md:p-10">
+                <h2 class="font-serif text-3xl font-bold mb-4 text-white border-b border-gray-700 pb-3">The Counsellor & The Non-Directive Process</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- COUNSELLOR QUALITIES -->
+                    <div>
+                        <h3 class="font-sans text-xl font-semibold mb-3 text-var-brand-violet">Qualities You Can Expect in Your Counsellor:</h3>
+                        <ul class="space-y-2 text-text-secondary ml-4 list-disc list-inside">
+                            <li>**Empathy:** Deep understanding of your feelings.</li>
+                            <li>**Genuineness:** Being authentic and true (Congruence).</li>
+                            <li>**Warmth & Positive Regard:** Unconditional acceptance without judgment.</li>
+                            <li>**Patience:** Allowing space for discovery.</li>
+                            <li>**Confidentiality:** Assuring privacy and a safe, secured space.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- THE COUNSELLING PROCESS -->
+                    <div>
+                        <h3 class="font-sans text-xl font-semibold mb-3 text-var-brand-violet">The Non-Directive Counselling Stages:</h3>
+                        <ul class="space-y-2 text-text-secondary ml-4 list-disc list-inside">
+                            <li>**Initiative Phase:** Building rapport, assuring confidentiality, listening with empathy (SOLER posture).</li>
+                            <li>**Middle Phase (Catharsis):** Paraphrasing, understanding the problem, giving unconditional support, **Goal Setting**.</li>
+                            <li>**Ending Phase:** Evaluation, review of progress, necessary referrals, and respectful termination.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="text-lg text-text-secondary leading-relaxed mt-8 border-t border-gray-700 pt-4">
+                    Our approach avoids **Directive Counseling**—we do not offer quick-fix advice or solutions. We focus on helping you find **your own unique path**, ensuring lasting change where your self-esteem is strengthened, not lowered by dependency on the counsellor.
+                </p>
+                <div class="mt-4 italic text-lg text-text-secondary max-w-xl mx-auto text-center">
+                    “Everyone is unique, as are the challenges that we all face in our daily lives.”
+                </div>
+            </section>
+            
+            <!-- NEW SECTION: THERAPEUTIC APPROACHES DETAIL -->
+            <section class="mb-12">
+                <h2 class="font-serif text-3xl font-bold mb-4 text-white text-center">Exploring Therapeutic Approaches</h2>
+                <p class="text-text-secondary text-lg mb-8 text-center">
+                    We draw upon various therapeutic modalities to craft an approach that perfectly suits your individual needs. **Click/Tap** any approach to see a brief description.
+                </p>
+                
+                <div class="glass-card p-6 md:p-8 space-y-1">
+                    
+                    <details class="counselling-type-item">
+                        <summary>Behavioural Therapy</summary>
+                        <p>Behavioural therapy is based on the theory that you can 'unlearn' learnt behaviour or change that behaviour, without focusing on the reason behind the original behaviour. People with **compulsive and obsessive disorders, fears, phobias, and addictions** may benefit from this type of therapy. It is often combined with Cognitive Therapy to form CBT.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Cognitive Analytical Therapy (CAT)</summary>
+                        <p>This is a short-term, structured, and directive therapy that explores the client’s language and thinking, and the link between historical, cultural, and social factors on how they function. It encourages the client to develop skills to change destructive patterns of behaviour and negative ways of thinking and acting.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Cognitive Behavioural Therapy (CBT)</summary>
+                        <p>CBT is widely used for **anxiety and depression**. It seeks to change distressing behaviour quickly by **challenging unhelpful thoughts and beliefs** and teaching the client to use coping strategies. It is often practical and goal-oriented, and may involve "homework" tasks between sessions.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Cognitive Therapy</summary>
+                        <p>Cognitive therapy emphasizes that our **thoughts cause our feelings and behaviours**, rather than external situations. By changing dysfunctional thinking patterns, people can change how they feel and act. It is generally combined with behavioural techniques to form CBT.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Family Therapy</summary>
+                        <p>Family therapy explores family relationships by looking at the **family as a whole**, rather than working with a single person. The focus is on how family members interact together, and the goal is to involve the entire unit in finding positive solutions.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Gestalt Therapy</summary>
+                        <p>Gestalt therapy emphasizes understanding one's **non-verbal and body language** and focusing on **"here-and-now"** behavior. Clients are encouraged to accept responsibility for their actions, decisions, and feelings, promoting positive change. It is generally not a confrontational approach.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Hypnotherapy</summary>
+                        <p>Hypnotherapy uses the technique of hypnosis to induce a deep state of relaxation where the unconscious mind is highly receptive to new ideas. This can help to change behavior, attitudes, and emotions, as well as manage **pain, anxiety, stress-related illnesses, and bad habits**.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Integrative Approaches</summary>
+                        <p>An integrative counsellor combines aspects of different traditional approaches, tailoring their method to provide the most effective way of working based on the client’s unique needs, rather than specializing in one single model.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Multimodal Therapy</summary>
+                        <p>This integrative approach looks at how the client functions overall in many areas of their life. The therapist selects a range of techniques most likely to be helpful, including methods like assertiveness training, anxiety management, and visualization.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Neuro-Linguistic Programming (NLP)</summary>
+                        <p>NLP explores the connection between our **mental map of the world (Neuro)**, how we give **meaning to information (Linguistic)**, and how we **respond (Programming)**. Techniques are used to bring about rapid change and improve personal growth, development, and performance.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Person-Centred Counselling</summary>
+                        <p>Based on the work of Carl Rogers, this approach emphasizes the importance of the counsellor being **warm, empathic, non-judgemental, and non-directive**. Clients are highly likely to feel accepted and supported, but the counsellor will not offer specific advice or suggestions, focusing instead on the client's inner resources.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Psychoanalysis</summary>
+                        <p>Originating with Sigmund Freud, this approach deals with the exploration of the **unconscious mind** and requires long-term specialist training. The analyst helps you become aware of unconscious patterns so you can change them, often highlighting relationship patterns within the therapeutic relationship itself.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Psychodynamic Counselling</summary>
+                        <p>Developed from psychoanalysis, this therapy focuses on the influence of the **unconscious mind and past experiences** (especially childhood relationships) on current behavior. It is often a lengthy process and appeals to those interested in exploring deep-seated emotional processes.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Relationship Counselling</summary>
+                        <p>Relationship counselling aims to help people **recognize and manage different and negative patterns** within their relationships. The therapist works with individuals or couples/families to explore relationship dynamics and facilitate positive change in communication and interaction.</p>
+                    </details>
+                    
+                    <details class="counselling-type-item">
+                        <summary>Solution-Focused Brief Therapy</summary>
+                        <p>This therapy is highly **practical and goal-oriented**. It promotes positive change by focusing on a specific issue and encouraging clients to focus on what they do well, leveraging their strengths and setting clear goals, rather than dwelling on past problems.</p>
+                    </details>
+
+                </div>
+            </section>
+            <!-- END NEW SECTION -->
+
+
+            <!-- FINAL CALL TO ACTION -->
+            <section class="text-center pt-8">
+                <h2 class="font-serif text-3xl font-bold mb-4 text-white">Ready to Start Your Journey to Clarity?</h2>
+                <p class="text-text-secondary text-lg mb-8">
+                    Connect with our Licensed Counsellor to discuss your personal challenges and find the right approach for your individual needs.
+                </p>
+                <a href="https://wa.me/917892112327" target="_blank" class="bg-var-accent-gold text-black font-semibold mobile-btn hover:bg-white transform hover:scale-[1.02] duration-300 !py-4 !px-10 rounded-full shadow-lg">
+                    <i class="fab fa-whatsapp mr-2"></i> Book Your Counselling Consultation
+                </a>
+            </section>
+
+        </div>
+    </main>
+
+</body>
+</html>
